@@ -26,9 +26,9 @@ namespace Confluent.SchemaRegistry.Serdes.UnitTests
 {
     public class SerializeDeserialzeTests
     {
-        private ISchemaRegistryClient schemaRegistryClient;
-        private string testTopic;
-        private Dictionary<string, int> store = new Dictionary<string, int>();
+        private readonly ISchemaRegistryClient schemaRegistryClient;
+        private readonly string testTopic;
+        private readonly Dictionary<string, int> store = new Dictionary<string, int>();
 
         public SerializeDeserialzeTests()
         {
@@ -69,7 +69,7 @@ namespace Confluent.SchemaRegistry.Serdes.UnitTests
             var avroDeserializer = new AvroDeserializer<bool>(schemaRegistryClient);
             byte[] bytes;
             bytes = avroSerializer.SerializeAsync(true, new SerializationContext(MessageComponentType.Value, testTopic)).Result;
-            Assert.Equal(true, avroDeserializer.DeserializeAsync(bytes, false, new SerializationContext(MessageComponentType.Value, testTopic)).Result);
+            Assert.True(avroDeserializer.DeserializeAsync(bytes, false, new SerializationContext(MessageComponentType.Value, testTopic)).Result);
         }
 
         [Fact]
@@ -119,7 +119,7 @@ namespace Confluent.SchemaRegistry.Serdes.UnitTests
             var avroDeserializer = new AvroDeserializer<Null>(schemaRegistryClient);
             byte[] bytes;
             bytes = avroSerializer.SerializeAsync(null, new SerializationContext(MessageComponentType.Value, testTopic)).Result;
-            Assert.Equal(null, avroDeserializer.DeserializeAsync(bytes, false, new SerializationContext(MessageComponentType.Value, testTopic)).Result);
+            Assert.Null(avroDeserializer.DeserializeAsync(bytes, false, new SerializationContext(MessageComponentType.Value, testTopic)).Result);
         }
 
         [Fact]

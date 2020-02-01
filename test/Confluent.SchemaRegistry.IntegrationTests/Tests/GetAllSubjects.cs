@@ -38,7 +38,7 @@ namespace Confluent.SchemaRegistry.IntegrationTests
             var subjectsBefore = sr.GetAllSubjectsAsync().Result;
 
             var subject = sr.ConstructKeySubjectName(topicName);
-            var id = sr.RegisterSchemaAsync(subject, testSchema1).Result;
+            _ = sr.RegisterSchemaAsync(subject, testSchema1).Result;
 
             var subjectsAfter = sr.GetAllSubjectsAsync().Result;
 
@@ -50,7 +50,7 @@ namespace Confluent.SchemaRegistry.IntegrationTests
 
             Assert.Equal(subjectsAfter.Count, subjectsAfter2.Count);
 
-            Assert.True(subjectsAfter2.Contains(subject));
+            Assert.Contains(subject, subjectsAfter2);
         }
     }
 }

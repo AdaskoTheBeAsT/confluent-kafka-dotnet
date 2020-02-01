@@ -47,7 +47,7 @@ namespace Confluent.SchemaRegistry.IntegrationTests
 
             Assert.Throws<AggregateException>(() => sr.RegisterSchemaAsync(subject, testSchema2).Result);
 
-            Assert.True(sr.GetAllSubjectsAsync().Result.Contains(subject));
+            Assert.Contains(subject, sr.GetAllSubjectsAsync().Result);
         }
     }
 }

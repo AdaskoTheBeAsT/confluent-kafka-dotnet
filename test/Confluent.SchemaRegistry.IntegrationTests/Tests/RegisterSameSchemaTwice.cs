@@ -43,7 +43,7 @@ namespace Confluent.SchemaRegistry.IntegrationTests
 
             Assert.Equal(id1, id2);
             
-            Assert.True(sr.GetAllSubjectsAsync().Result.Contains(subject));
+            Assert.Contains(subject, sr.GetAllSubjectsAsync().Result);
         }
     }
 }
